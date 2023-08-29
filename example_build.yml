@@ -16,7 +16,7 @@ jobs:
 
     outputs:
       digest: ${{ steps.docker-build.outputs.digest }}
-      image: ${{ steps.hash.outputs.image_name }}
+      image: ${{ steps.image-name.outputs.image_name }}
 
     steps:
     - name: Checkout code
@@ -43,11 +43,10 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
 
-    - name: Generate hashes
+    - name: Image name
       shell: bash
-      id: hash
-      run: |
-        echo "image_name=${{ env.IMAGE_NAME }}" >> "$GITHUB_OUTPUT"
+      id: image-name
+      run: echo "image_name=${{ env.IMAGE_NAME }}" >> "$GITHUB_OUTPUT"
 
 
   provenance:
